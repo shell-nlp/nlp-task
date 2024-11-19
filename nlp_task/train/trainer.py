@@ -19,7 +19,7 @@ from loguru import logger
 from .adversarial_training import FGM
 
 
-class trainer(Trainer):
+class Trainer(Trainer):
     def __init__(
         self,
         model: Union[PreTrainedModel, nn.Module] = None,
@@ -54,6 +54,20 @@ class trainer(Trainer):
         epsilon: float = 1.0,
         emb_name: str = "word_embeddings",
     ):
+        super().__init__(
+            model=model,
+            args=args,
+            data_collator=data_collator,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
+            processing_class=processing_class,
+            model_init=model_init,
+            compute_loss_func=compute_loss_func,
+            compute_metrics=compute_metrics,
+            callbacks=callbacks,
+            optimizers=optimizers,
+            preprocess_logits_for_metrics=preprocess_logits_for_metrics,
+        )
         self.fgm = None
         if use_fgm:
             logger.info("开启FGM...")
