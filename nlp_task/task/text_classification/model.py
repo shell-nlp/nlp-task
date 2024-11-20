@@ -4,14 +4,10 @@ from transformers import AutoTokenizer
 
 
 class TextClassificationModel(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, ckpt):
         super().__init__()
-        self.model = BertForSequenceClassification.from_pretrained(
-            "/home/dev/model/google-bert/bert-base-chinese/"
-        )
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            "/home/dev/model/google-bert/bert-base-chinese/"
-        )
+        self.model = BertForSequenceClassification.from_pretrained(ckpt)
+        self.tokenizer = AutoTokenizer.from_pretrained(ckpt)
 
     def get_tokenizer(self):
         return self.tokenizer

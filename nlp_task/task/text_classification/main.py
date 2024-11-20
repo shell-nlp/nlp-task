@@ -1,12 +1,16 @@
 from transformers import TrainingArguments, DataCollatorWithPadding
 from datasets import Dataset
+import os
 
-from nlp_task.task.text_classification.model import TextClassificationModel
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from nlp_task.train.trainer import Trainer
+from nlp_task.task.text_classification.model import TextClassificationModel
+
 
 data_path = "./data/data.jsonl"
 dataset = Dataset.from_json(data_path)
-model = TextClassificationModel()
+ckpt = "/home/dev/model/google-bert/bert-base-chinese/"
+model = TextClassificationModel(ckpt)
 tokenizer = model.get_tokenizer()
 
 
